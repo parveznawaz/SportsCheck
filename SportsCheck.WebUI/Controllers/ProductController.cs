@@ -20,17 +20,17 @@ namespace SportsCheck.WebUI.Controllers
         }
         
        
-        public ViewResult List(string catagory, int page=1)
+        public ViewResult List(string category, int page=1)
         {
             //return View(repository.Products
             //    .OrderBy(p=>p.ProductID)
             //    .Skip((page-1)*PageSize)
             //    .Take(PageSize));
-            Console.WriteLine(catagory);
+            Console.WriteLine(category);
             ProductsListViewModel model = new ProductsListViewModel
             {
                 Products = repository.Products
-                .Where(p=>p.Category==catagory)
+                .Where(p => category == null || p.Category ==category)
                 .OrderBy(p => p.ProductID)
                 .Skip((page - 1) * PageSize)
                 .Take(PageSize)
@@ -40,7 +40,7 @@ namespace SportsCheck.WebUI.Controllers
                     ItemsPerPage = PageSize,
                     TotalItems = repository.Products.Count()
                 },
-                CurrentCatagory=catagory
+                CurrentCatagory = category
             };
             return View(model);
         }
